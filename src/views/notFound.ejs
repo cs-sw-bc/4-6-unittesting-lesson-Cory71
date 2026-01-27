@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+
+    <main class="container">
+      <section class="card hero">
+        <h1>404</h1>
+        <p class="muted">Page not found: <code><%= path %></code></p>
+        <div class="actions">
+          <a class="button" href="/">Go Home</a>
+        </div>
+      </section>
+    </main>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>

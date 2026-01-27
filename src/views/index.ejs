@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+
+    <main class="container">
+      <section class="card hero">
+        <h1>Place an Order</h1>
+        <p class="muted">
+          Enter quantities, province (for tax), and an optional coupon code. The server will calculate totals and loyalty points.
+        </p>
+      </section>
+
+      <section class="card">
+        <form method="POST" action="/order" class="form">
+          <div class="grid two">
+            <div>
+              <label class="label" for="customerName">Customer name</label>
+              <input class="input" id="customerName" name="customerName" placeholder="e.g. Alex" required />
+            </div>
+
+            <div>
+              <label class="label" for="province">Province</label>
+              <select class="input" id="province" name="province" required>
+                <option value="">Select…</option>
+                <% provinces.forEach((p) => { %>
+                  <option value="<%= p %>"><%= p %></option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div>
+              <label class="label" for="couponCode">Coupon code (optional)</label>
+              <input class="input" id="couponCode" name="couponCode" placeholder="e.g. SAVE10" />
+              <div class="hint">Try: SAVE10, TAKE2, HOT15</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <h2>Menu</h2>
+          <div class="table">
+            <div class="table-row table-head">
+              <div>Item</div>
+              <div class="right">Price</div>
+              <div class="right">Qty</div>
+            </div>
+
+            <% menuItems.forEach((item) => { %>
+              <div class="table-row">
+                <div>
+                  <div class="item-name"><%= item.name %></div>
+                  <div class="muted small">ID: <%= item.id %></div>
+                </div>
+                <div class="right">$<%= item.price.toFixed(2) %></div>
+                <div class="right">
+                  <input
+                    class="input qty"
+                    type="number"
+                    min="0"
+                    step="1"
+                    name="qty_<%= item.id %>"
+                    value="0"
+                  />
+                </div>
+              </div>
+            <% }) %>
+          </div>
+
+          <div class="actions">
+            <button class="button" type="submit">Calculate Total</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>

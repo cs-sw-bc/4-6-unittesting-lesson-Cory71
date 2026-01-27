@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+
+    <main class="container">
+      <section class="card hero">
+        <h1>Rewards Dashboard</h1>
+        <p class="muted">Points are stored in memory while the server is running.</p>
+      </section>
+
+      <section class="card">
+        <h2>Customers</h2>
+
+        <% if (customers.length === 0) { %>
+          <p class="muted">No customers yet. Place an order to start earning points.</p>
+        <% } else { %>
+          <div class="table">
+            <div class="table-row table-head">
+              <div>Name</div>
+              <div class="right">Points</div>
+            </div>
+            <% customers.forEach((c) => { %>
+              <div class="table-row">
+                <div class="item-name"><%= c.name %></div>
+                <div class="right"><%= c.points %></div>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+
+        <div class="divider"></div>
+
+        <h2>Tier Rules</h2>
+        <div class="table">
+          <div class="table-row table-head">
+            <div>Tier</div>
+            <div class="right">Points needed</div>
+          </div>
+          <div class="table-row"><div>Bronze</div><div class="right">0+</div></div>
+          <div class="table-row"><div>Silver</div><div class="right">100+</div></div>
+          <div class="table-row"><div>Gold</div><div class="right">250+</div></div>
+          <div class="table-row"><div>Platinum</div><div class="right">500+</div></div>
+        </div>
+
+        <div class="actions">
+          <a class="button" href="/">Place an Order</a>
+        </div>
+      </section>
+    </main>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>

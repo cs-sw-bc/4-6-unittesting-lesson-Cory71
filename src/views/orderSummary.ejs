@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+
+    <main class="container">
+      <section class="card hero">
+        <h1>Order Summary</h1>
+        <p class="muted">Customer: <strong><%= customerName %></strong> · Province: <strong><%= province %></strong></p>
+      </section>
+
+      <section class="card">
+        <h2>Items</h2>
+
+        <% if (items.length === 0) { %>
+          <p class="muted">No items selected.</p>
+        <% } else { %>
+          <div class="table">
+            <div class="table-row table-head">
+              <div>Item</div>
+              <div class="right">Qty</div>
+              <div class="right">Line Total</div>
+            </div>
+
+            <% items.forEach((item) => { %>
+              <div class="table-row">
+                <div>
+                  <div class="item-name"><%= item.name %></div>
+                  <div class="muted small">$<%= item.price.toFixed(2) %> each</div>
+                </div>
+                <div class="right"><%= item.quantity %></div>
+                <div class="right">$<%= (item.price * item.quantity).toFixed(2) %></div>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+
+        <div class="divider"></div>
+
+        <h2>Totals</h2>
+        <div class="summary">
+          <div class="summary-row"><div>Subtotal</div><div>$<%= subtotal.toFixed(2) %></div></div>
+          <div class="summary-row"><div>Coupon</div><div><%= couponCode ? couponCode : '—' %></div></div>
+          <div class="summary-row"><div>Coupon valid?</div><div><%= couponCode ? (couponIsValid ? 'Yes' : 'No') : '—' %></div></div>
+          <div class="summary-row"><div>Discount</div><div>-$<%= discount.toFixed(2) %></div></div>
+          <div class="summary-row"><div>Taxable amount</div><div>$<%= taxableAmount.toFixed(2) %></div></div>
+          <div class="summary-row"><div>Tax</div><div>$<%= tax.toFixed(2) %></div></div>
+          <div class="summary-row total"><div>Total</div><div>$<%= total.toFixed(2) %></div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>Loyalty</h2>
+        <div class="summary">
+          <div class="summary-row"><div>Points before</div><div><%= pointsBefore %></div></div>
+          <div class="summary-row"><div>Points earned</div><div><%= pointsEarned %></div></div>
+          <div class="summary-row"><div>Points after</div><div><%= pointsAfter %></div></div>
+          <div class="summary-row"><div>Tier</div><div><strong><%= tier %></strong></div></div>
+        </div>
+
+        <div class="actions">
+          <a class="button secondary" href="/">New Order</a>
+          <a class="button" href="/rewards">View Rewards</a>
+        </div>
+      </section>
+    </main>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>
