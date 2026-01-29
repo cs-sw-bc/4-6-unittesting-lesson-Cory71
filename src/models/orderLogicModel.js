@@ -33,16 +33,16 @@ export function calculateTaxableAmount(subtotal, discount) {
 export function validateCouponCode(code, availableCoupons) {
   if (!code) return false;
 
-  const normalized = code.trim();
-  return availableCoupons.some((c) => c.code === normalized);
+  const normalized = code.trim().toUpperCase();
+  return availableCoupons.some((c) => c.code.toUpperCase() === normalized);
 }
 
 // Finds the coupon object for a coupon code.
 export function getCouponByCode(code, availableCoupons) {
   if (!code) return null;
 
-  const normalized = code.trim();
-  return availableCoupons.find((c) => c.code === normalized) || null;
+  const normalized = code.trim().toUpperCase();
+  return availableCoupons.find((c) => c.code.toUpperCase() === normalized) || null;
 }
 
 // Calculates the discount amount for a given subtotal and coupon.
